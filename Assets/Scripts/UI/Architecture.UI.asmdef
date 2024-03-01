@@ -1,0 +1,16 @@
+{
+    "name": "Architecture.UI",
+    "rootNamespace": "Architecture.UI",
+    "references": [
+        "GUID:dc4bc3ec92a090b419802e50be342590"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -1,3 +1,7 @@
-class PresentationMainController
+namespace Architecture.Presentation
 {
+    class PresentationMainController
+    {
+
+    }
 }
