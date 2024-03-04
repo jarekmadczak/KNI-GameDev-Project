@@ -6,6 +6,6 @@ namespace Architecture.Common
         public const int UIScene = 2;
         public const int MainMenuScene = 3;
         public const int GameplayScene = 4;
-        public const int LevelScene = 5;
+        public const int BattleScene = 5;
     }
 }

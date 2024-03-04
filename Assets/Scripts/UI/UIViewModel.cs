@@ -1,22 +1,21 @@
 using Architecture.Common;
-using Architecture.Common.Systems;
-using Architecture.UI.Controllers;
-using Architecture.UI.Views;
+using Architecture.Ui.Configs;
+using Architecture.UI.Systems;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Architecture.UI
 {
     public static class UIViewModel
     {
-        static SceneReferencesHolder _sceneReferences;
-        static CameraView _camera; 
+        static internal UISceneReferencesHolder UISceneReferencesHolder;
+        static internal SceneReferencesHolder SceneReferencesHolder;
+
+        static CameraConfig _cameraConfig;
+        static UIConfig _uiConfig;
+
         public static void CustomStart() { }
 
-        public static void CusotmUpdate()
-        {   
-            _camera.UpdateCameraPosition();
-        }
+        public static void CusotmUpdate() { }
 
         public static void CustomFixedUpdate() { }
 
@@ -24,36 +23,55 @@ namespace Architecture.UI
 
         public static void MenuOnEntry()
         {
-            Button startButton = GameObject.Find("StartButton").GetComponent<Button>();
-            Button loadButton = GameObject.Find("LoadButton").GetComponent<Button>();
-            Button settingsButton = GameObject.Find("SettingsButton").GetComponent<Button>();
-            Button exitButton = GameObject.Find("ExitButton").GetComponent<Button>();
-
-            startButton.onClick.AddListener(() => MainMenuController.StartClick());
-            loadButton.onClick.AddListener(() => MainMenuController.LoadClick());
-            settingsButton.onClick.AddListener(() => MainMenuController.SettingsClick());
-            exitButton.onClick.AddListener(() => MainMenuController.ExitClick());
+            SceneReferencesHolder.GameplayCamera.transform.position = _cameraConfig.MainMenuCameraPosition;
+            InputSystem.MainMenuInputs.EnableInput();
         }
 
-        public static void MenuOnExit() { }
+        public static void MenuOnExit()
+        {
+            InputSystem.MainMenuInputs.DisableInput();
+        }
 
         public static void GameplayOnEntry()
         {
-            _camera.FocusOnGameObject(GameObject.Find("SampleGO"));
+            SceneReferencesHolder.GameplayCamera.transform.position = _cameraConfig.GameplayCameraPostion;
+            InputSystem.GameplayInputs.EnableInput();
         }
 
-        public static void GameplayOnExit() { }
+        public static void GameplayOnExit()
+        {
+            InputSystem.GameplayInputs.DisableInput();
+        }
 
-        public static void BattleOnEntry() { }
+        public static void BattleOnEntry()
+        {
+            SceneReferencesHolder.GameplayCamera.transform.position = _cameraConfig.BattleCameraPosition;
+            InputSystem.BattleInputs.EnableInput();
+        }
 
-        public static void BattleOnExit() { }
+        public static void BattleOnExit()
+        { 
+            InputSystem.BattleInputs.DisableInput();
+        }
 
         public static void OnCoreSceneLoad()
         {
-            _sceneReferences = GameObject.Find("SceneReferencesHolder").GetComponent<SceneReferencesHolder>();
-            _camera = _sceneReferences.GameplayCamera.GetComponent<CameraView>();
-            _camera.Initialize();
-            _camera.FocusOnGameObject(_sceneReferences.gameObject);
+            UISceneReferencesHolder = Object.FindFirstObjectByType<UISceneReferencesHolder>();
+            SceneReferencesHolder = Object.FindFirstObjectByType<SceneReferencesHolder>();
+;           InputSystem.Initialize();
         }
+
+        internal static void MoveCamera(Vector2 v)
+        {
+            Vector3 movement = new Vector3(0, v.y * _cameraConfig.ScrollSensitivity, 0);
+            SceneReferencesHolder.GameplayCamera.transform.Translate(movement, Space.World);
+        }
+
+        public static void CloseAllPopups()
+        {
+            if (PopupSystem.CurrentPopup == null)
+                return;
+            PopupSystem.CurrentPopup.Close();
+        } 
     }
 }

@@ -10,10 +10,13 @@ namespace Architecture.Boot
     class BootView : MonoBehaviour
     {
         static bool _isCoreSceneLoaded;
+
         void Awake()
         {
             _isCoreSceneLoaded = false;
             DontDestroyOnLoad(this);
+            DontDestroyOnLoad(GameObject.Find("EventSystem"));
+            Injector.InjectNonMonoBehaviourConfigs();
             SignalProcessor.SendSignal(new ChangeGameStateSignal(GameState.Boot));
         }
 
@@ -53,17 +56,20 @@ namespace Architecture.Boot
             PresentationViewModel.CustomLateUpdate();
         }
         #endregion
+
         public static void OnCoreSceneLoad()
         {
             _isCoreSceneLoaded = true;
             UIViewModel.OnCoreSceneLoad();
             PresentationViewModel.OnCoreSceneLoad();
         }
+
         public static void MenuOnEntry()
         {
             UIViewModel.MenuOnEntry();
             PresentationViewModel.MenuOnEntry();
         }
+
         public static void MenuOnExit()
         {
             UIViewModel.MenuOnExit();

@@ -7,41 +7,42 @@ namespace Architecture.Common.Systems
 {
     public class GameStateSystem
     {
+        static AsyncOperation _currentLoad;
         internal static GameState CurrentGameState
         {
             get => _currentGameState;
             set
             {
+                if (value == _currentGameState)
+                    throw new Exception("Unexpected game state change, cant go from game state: " + _currentGameState + " to " + value);
+
+                //Handle entering game state
                 switch (value)
                 {
                     case GameState.Boot:
-                        var coreSceneLoad = SceneManager.LoadSceneAsync(Constants.CoreScene, LoadSceneMode.Additive);
+                        _currentLoad = SceneManager.LoadSceneAsync(Constants.CoreScene, LoadSceneMode.Additive);
                         var uiSceneLoad = SceneManager.LoadSceneAsync(Constants.UIScene, LoadSceneMode.Additive);
 
-                        coreSceneLoad.completed += _ =>
+                        _currentLoad.completed += _ =>
                         {
                             SignalProcessor.SendSignal(new CoreSceneLoadedSignal());
-                            var bootSceneUnload = SceneManager.UnloadSceneAsync(0);
-                            bootSceneUnload.completed += _ => SignalProcessor.SendSignal(new ChangeGameStateSignal(GameState.MainMenu));
+                            SignalProcessor.SendSignal(new ChangeGameStateSignal(GameState.MainMenu));
                         };
                         break;
 
                     case GameState.MainMenu:
                         var mainMenuSceneLoad = SceneManager.LoadSceneAsync(Constants.MainMenuScene, LoadSceneMode.Additive);
                         mainMenuSceneLoad.completed += _ => SignalProcessor.SendSignal(new MenuEntrySignal());
-
                         break;
 
                     case GameState.Gameplay:
-
                         var gameplaySceneLoad = SceneManager.LoadSceneAsync(Constants.GameplayScene, LoadSceneMode.Additive);
-                        var mainMenuSceneUnload = SceneManager.UnloadSceneAsync(Constants.MainMenuScene);
-                        mainMenuSceneUnload.completed += _ => SignalProcessor.SendSignal(new MenuExitSignal());
                         gameplaySceneLoad.completed += _ => SignalProcessor.SendSignal(new GameplayEntrySignal());
                         break;
 
-                    case GameState.Level0:
-
+                    case GameState.Battle:
+                        var battleSceneLoad = SceneManager.LoadSceneAsync(Constants.BattleScene, LoadSceneMode.Additive);
+                        battleSceneLoad.completed += _ => SignalProcessor.SendSignal(new BattleEntrySignal());
                         break;
 
                     case GameState.Exit:
@@ -52,9 +53,30 @@ namespace Architecture.Common.Systems
                     default:
                         throw new Exception("Wrong game state value");
                 }
+
+                //Handle exiting game state
+                switch (_currentGameState)
+                {
+                    case GameState.Boot:
+                        var bootSceneUnload = SceneManager.UnloadSceneAsync(0);
+                        break;
+                    case GameState.MainMenu:
+                        var mainMenuSceneUnload = SceneManager.UnloadSceneAsync(Constants.MainMenuScene);
+                        mainMenuSceneUnload.completed += _ => SignalProcessor.SendSignal(new MenuExitSignal());
+                        break;
+                    case GameState.Gameplay:
+                        var gameplaySceneUnload = SceneManager.UnloadSceneAsync(Constants.GameplayScene);
+                        gameplaySceneUnload.completed += _ => SignalProcessor.SendSignal(new GameplayExitSignal());
+                        break;
+                    case GameState.Battle:
+                        var battleSceneUnload = SceneManager.UnloadSceneAsync(Constants.BattleScene);
+                        battleSceneUnload.completed += _ => SignalProcessor.SendSignal(new BattleExitSignal());
+                        break;
+                }
+                Injector.InjectMonoBehaviourConfigs();
                 _currentGameState = value;
             }
         }
-        static GameState _currentGameState = GameState.Boot;
+        static GameState _currentGameState = GameState.Undefined;
     }
 }
