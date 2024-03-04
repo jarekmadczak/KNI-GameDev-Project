@@ -66,5 +66,12 @@ namespace Architecture.UI
             Vector3 movement = new Vector3(0, v.y * _cameraConfig.ScrollSensitivity, 0);
             SceneReferencesHolder.GameplayCamera.transform.Translate(movement, Space.World);
         }
+
+        public static void CloseAllPopups()
+        {
+            if (PopupSystem.CurrentPopup == null)
+                return;
+            PopupSystem.CurrentPopup.Close();
+        } 
     }
 }

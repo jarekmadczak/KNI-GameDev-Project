@@ -1,6 +1,7 @@
 using Architecture.Common;
 using Architecture.Common.Signals;
 using Architecture.Common.Systems;
+using Architecture.UI;
 using System;
 
 namespace Architecture.Boot
@@ -39,6 +40,7 @@ namespace Architecture.Boot
                         BootView.BattleOnExit();
                         break;
                     case SignalType.ChangeGameState:
+                        UIViewModel.CloseAllPopups();
                         break;
                     case SignalType.None:
                         throw new Exception("Undefined signal: " + SignalProcessor.Signals[i].GetType() + " please check if your signal return signal type in GetSignalType method in SignalReceiver");

@@ -1,7 +1,6 @@
 using Architecture.Ui.Configs;
 using Architecture.UI.Enums;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
