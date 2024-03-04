@@ -23,7 +23,7 @@ namespace Architecture.UI.Systems
         const string Battle = "Battle";
 
         const string Exit = "Exit";
-
+        const string Scroll = "Scroll";
 
         internal static void Initialize()
         {
@@ -48,7 +48,7 @@ namespace Architecture.UI.Systems
         static void InitializeGameplayInputs()
         {
             GameplayInputs.FindAction(Exit).performed += _ => PopupSystem.ShowPopup(PopupType.Pause);
-            GameplayInputs.FindAction("Scroll").performed += move => UIViewModel.MoveCamera(move.ReadValue<Vector2>().normalized);
+            GameplayInputs.FindAction(Scroll).performed += move => UIViewModel.MoveCamera(move.ReadValue<Vector2>().normalized);
         }
         static void InitializeBattleInputs()
         {
@@ -102,6 +102,5 @@ namespace Architecture.UI.Systems
 
             input.Disable();
         }
-
     }
 }

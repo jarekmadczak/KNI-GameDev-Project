@@ -1,8 +1,6 @@
-using Architecture.Ui.Configs;
 using Architecture.UI.Configs;
 using Architecture.UI.Enums;
 using Architecture.UI.Systems;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Architecture.UI
@@ -13,7 +11,7 @@ namespace Architecture.UI
         internal static AbstractPopup CurrentPopup;
 
         static readonly PopupConfig _config;
-
+        
         internal static void ShowPopup(PopupType type)
         {
             InputSystem.PopupInputs.EnableInput();
@@ -32,7 +30,6 @@ namespace Architecture.UI
         {
             AbstractPopup popup = Object.Instantiate(view, UIViewModel.UISceneReferencesHolder.PopupContainer.transform);
             popup.Initialize();
-
         }
 
         internal static void CloseCurrentPopup()

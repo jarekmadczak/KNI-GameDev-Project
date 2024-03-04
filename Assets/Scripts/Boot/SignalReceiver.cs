@@ -14,7 +14,6 @@ namespace Architecture.Boot
 
             for(int i = 0; i < SignalProcessor.Signals.Count; i++)
             {
-
                 SignalType type = SignalProcessor.Signals[i].GetSignalType();
                 switch (type)
                 {

@@ -7,12 +7,14 @@ namespace Architecture.Common
 {
     public static class Injector
     {
+        const string MonoBehaviour = "MonoBehaviour";
+        const string AssemblyPrefix = "Architecture";
         public static void InjectNonMonoBehaviourConfigs()
         {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             for (int i = 0; i < assemblies.Length; i++)
             {
-                if (!assemblies[i].FullName.StartsWith("Architecture"))
+                if (!assemblies[i].FullName.StartsWith(AssemblyPrefix))
                     continue;
 
                 Type[] types = assemblies[i].GetTypes();
@@ -23,11 +25,11 @@ namespace Architecture.Common
 
                     while (baseType != null)
                     {
-                        if (baseType.Name == "MonoBehaviour")
+                        if (baseType.Name == MonoBehaviour)
                             break;
                         baseType = baseType.BaseType;
                     }
-                    if (baseType != null && baseType.Name == "MonoBehaviour")
+                    if (baseType != null && baseType.Name == MonoBehaviour)
                         continue;
 
                     FieldInfo[] members = types[j].GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);
@@ -49,12 +51,13 @@ namespace Architecture.Common
                 }
             }
         }
+
         public static void InjectMonoBehaviourConfigs()
         {
             Assembly[] assemblies = AppDomain.CurrentDomain.GetAssemblies();
             for (int i = 0; i < assemblies.Length; i++)
             {
-                if (!assemblies[i].FullName.StartsWith("Architecture"))
+                if (!assemblies[i].FullName.StartsWith(AssemblyPrefix))
                     continue;
 
                 Type[] types = assemblies[i].GetTypes();
@@ -64,12 +67,12 @@ namespace Architecture.Common
 
                     while (baseType != null)
                     {
-                        if (baseType.Name == "MonoBehaviour")
+                        if (baseType.Name == MonoBehaviour)
                             break;
                         baseType = baseType.BaseType;
                     }
 
-                    if (baseType == null || baseType.Name != "MonoBehaviour")
+                    if (baseType == null || baseType.Name != MonoBehaviour)
                         continue;
 
                     FieldInfo[] members = types[j].GetFields(BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Static);

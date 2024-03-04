@@ -19,6 +19,7 @@ namespace Architecture.UI.Views
 
         [SerializeField]
         Button _exitButton;
+
         void Awake()
         {
             _startButton.onClick.AddListener(StartAction);

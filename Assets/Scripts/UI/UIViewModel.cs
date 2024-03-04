@@ -5,18 +5,17 @@ using UnityEngine;
 
 namespace Architecture.UI
 {
-    public class UIViewModel
+    public static class UIViewModel
     {
-        static CameraConfig _cameraConfig;
         static internal UISceneReferencesHolder UISceneReferencesHolder;
         static internal SceneReferencesHolder SceneReferencesHolder;
 
+        static CameraConfig _cameraConfig;
         static UIConfig _uiConfig;
+
         public static void CustomStart() { }
 
-        public static void CusotmUpdate()
-        {
-        }
+        public static void CusotmUpdate() { }
 
         public static void CustomFixedUpdate() { }
 
@@ -61,6 +60,7 @@ namespace Architecture.UI
             SceneReferencesHolder = Object.FindFirstObjectByType<SceneReferencesHolder>();
 ;           InputSystem.Initialize();
         }
+
         internal static void MoveCamera(Vector2 v)
         {
             Vector3 movement = new Vector3(0, v.y * _cameraConfig.ScrollSensitivity, 0);
