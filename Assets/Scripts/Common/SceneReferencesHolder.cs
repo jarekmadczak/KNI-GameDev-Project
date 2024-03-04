@@ -1,5 +1,6 @@
 using UnityEngine;
 
+
 namespace Architecture.Common
 {
     public class SceneReferencesHolder : MonoBehaviour

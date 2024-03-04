@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36795bfa6b557b746a6d3b4efa1dc4dd, type: 3}
-  m_Name: GameplayCameraConfig
+  m_Name: CameraConfig
   m_EditorClassIdentifier: 
-  PositionRelativeToGameObject: {x: 0, y: 1, z: -8}
+  MainMenuCameraPosition: {x: 0, y: 0, z: 0}
+  GameplayCameraPostion: {x: 0, y: 3, z: -5}
+  BattleCameraPosition: {x: 0, y: 0, z: 0}
+  ScrollSensitivity: 0.2
   Rotation: {x: 0, y: 0, z: 0, w: 0}

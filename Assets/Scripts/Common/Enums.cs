@@ -5,7 +5,8 @@ namespace Architecture.Common
         Boot = 0,
         MainMenu = 1,
         Gameplay = 2,
-        Level0 = 3,
+        Battle = 3,
         Exit = 999,
+        Undefined = -1,
     }
 }

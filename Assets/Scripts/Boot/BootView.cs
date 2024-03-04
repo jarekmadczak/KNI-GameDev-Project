@@ -9,11 +9,14 @@ namespace Architecture.Boot
 {
     class BootView : MonoBehaviour
     {
+
         static bool _isCoreSceneLoaded;
         void Awake()
         {
             _isCoreSceneLoaded = false;
             DontDestroyOnLoad(this);
+            DontDestroyOnLoad(GameObject.Find("EventSystem"));
+            Injector.InjectNonMonoBehaviourConfigs();
             SignalProcessor.SendSignal(new ChangeGameStateSignal(GameState.Boot));
         }
 
