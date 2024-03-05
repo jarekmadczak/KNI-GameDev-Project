@@ -82,7 +82,7 @@
             "id": "f7ae6a8d-ea49-4806-bebf-996584684af5",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Exit",
                     "type": "Button",
                     "id": "9b305723-cbdd-4d7c-9327-01c26f51cf02",
                     "expectedControlType": "Button",
@@ -95,11 +95,11 @@
                 {
                     "name": "",
                     "id": "46f05b32-f3d1-47b3-b2dc-573b10ed8934",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
