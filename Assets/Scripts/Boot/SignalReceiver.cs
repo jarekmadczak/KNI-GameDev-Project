@@ -1,6 +1,7 @@
 using Architecture.Common;
 using Architecture.Common.Signals;
 using Architecture.Common.Systems;
+using Architecture.Presentation;
 using Architecture.UI;
 using System;
 
@@ -42,6 +43,10 @@ namespace Architecture.Boot
                     case SignalType.ChangeGameState:
                         UIViewModel.CloseAllPopups();
                         break;
+                    case SignalType.ShowLevelPopup:
+                        UIViewModel.SelectedLevel = PresentationViewModel.SelectedLevel;
+                        UIViewModel.ShowPopup(PopupType.Level);
+                        break;
                     case SignalType.None:
                         throw new Exception("Undefined signal: " + SignalProcessor.Signals[i].GetType() + " please check if your signal return signal type in GetSignalType method in SignalReceiver");
                 }
@@ -76,6 +81,9 @@ namespace Architecture.Boot
 
             if(type.Equals(typeof(ChangeGameStateSignal)))
                 return SignalType.ChangeGameState;
+
+            if (type.Equals(typeof(ShowLevelPopupSignal)))
+                return SignalType.ShowLevelPopup;
 
             return SignalType.None;
         }

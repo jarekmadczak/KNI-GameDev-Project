@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1432b8c98419c2441a60564470c4e4fe, type: 3}
-  m_Name: PopupConfig
+  m_Script: {fileID: 11500000, guid: e943c5b120be73f40a3c90fc29b85cfe, type: 3}
+  m_Name: Level0Data
   m_EditorClassIdentifier: 
-  PopupPrefabs:
-  - {fileID: 7164296848460508570, guid: 8ddd31e99f726984fb75043455007761, type: 3}
-  - {fileID: 3576066103554421447, guid: 7606f058a3a432346ad87b5259eb4ec8, type: 3}
+  LevelNumber: 0

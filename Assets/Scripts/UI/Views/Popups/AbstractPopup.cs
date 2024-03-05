@@ -1,4 +1,4 @@
-using Architecture.UI.Enums;
+using Architecture.Common;
 using Architecture.UI.Systems;
 using UnityEngine;
 

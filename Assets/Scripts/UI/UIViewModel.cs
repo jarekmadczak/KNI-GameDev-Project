@@ -1,5 +1,6 @@
 using Architecture.Common;
 using Architecture.Ui.Configs;
+using Architecture.UI.Enums;
 using Architecture.UI.Systems;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace Architecture.UI
         static internal UISceneReferencesHolder UISceneReferencesHolder;
         static internal SceneReferencesHolder SceneReferencesHolder;
 
+        public static int SelectedLevel;
         static CameraConfig _cameraConfig;
         static UIConfig _uiConfig;
 
@@ -72,6 +74,7 @@ namespace Architecture.UI
             if (PopupSystem.CurrentPopup == null)
                 return;
             PopupSystem.CurrentPopup.Close();
-        } 
+        }
+        public static void ShowPopup(PopupType type) => PopupSystem.ShowPopup(type);
     }
 }

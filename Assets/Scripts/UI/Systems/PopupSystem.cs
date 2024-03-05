@@ -1,11 +1,11 @@
+using Architecture.Common;
 using Architecture.UI.Configs;
-using Architecture.UI.Enums;
 using Architecture.UI.Systems;
 using UnityEngine;
 
 namespace Architecture.UI
 {
-    //Todo: add multiple popup system
+    //Todo: add handling multiple popups
     static class PopupSystem
     {
         internal static AbstractPopup CurrentPopup;

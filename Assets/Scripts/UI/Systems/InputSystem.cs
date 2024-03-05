@@ -1,5 +1,5 @@
+using Architecture.Common;
 using Architecture.Ui.Configs;
-using Architecture.UI.Enums;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -51,7 +51,7 @@ namespace Architecture.UI.Systems
         }
         static void InitializeBattleInputs()
         {
-
+            BattleInputs.FindAction(Exit).performed += _ => PopupSystem.ShowPopup(PopupType.Pause);
         }
 
         internal static void EnableInput(this InputActionMap input)

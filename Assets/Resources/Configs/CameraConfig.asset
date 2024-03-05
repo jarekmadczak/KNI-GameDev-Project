@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: CameraConfig
   m_EditorClassIdentifier: 
   MainMenuCameraPosition: {x: 0, y: 0, z: 0}
-  GameplayCameraPostion: {x: 0, y: 3, z: -5}
+  GameplayCameraPostion: {x: 0, y: 3, z: -10}
   BattleCameraPosition: {x: 0, y: 0, z: 0}
   ScrollSensitivity: 0.2
   Rotation: {x: 0, y: 0, z: 0, w: 0}
